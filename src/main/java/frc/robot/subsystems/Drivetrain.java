@@ -7,16 +7,42 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
+  
+  public DifferentialDrive m_drivetrain;
+  
+  private static SpeedController m_forePort = new VictorSP(Constants.PortMotor1);
+  private static SpeedController m_aftPort = new VictorSP(Constants.PortMotor2);
+  private static SpeedControllerGroup m_port = new SpeedControllerGroup(m_forePort, m_aftPort);
+
+  private static SpeedController m_foreStarboard = new VictorSP(Constants.StarboardMotor1);
+  private static SpeedController m_aftStarboard = new VictorSP(Constants.StarboardMotor2);
+  private static SpeedControllerGroup m_starboard = new SpeedControllerGroup(m_foreStarboard, m_aftStarboard);
+
+  private static double m_deadband = 0.02;
   /**
    * Creates a new Drivetrain.
    */
   public Drivetrain() {
-
+    m_drivetrain = new DifferentialDrive(m_port, m_starboard);
   }
 
+
+  public void drive(double speed, double rotation){
+    m_drivetrain.arcadeDrive(speed, rotation);
+  }
+
+  public void jdrive(Joystick joystick){
+    m_drivetrain.arcadeDrive(joystick.getRawAxis(Constants.axisY), joystick.getRawAxis(Constants.axisX));
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
