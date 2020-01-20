@@ -16,7 +16,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //Drive Motor Ports
+    //Drive Motor Assignment
     public static int PortMotor1 = 0;
     public static int PortMotor2 = 1;
     public static int StarboardMotor1 = 2;
@@ -24,6 +24,14 @@ public final class Constants {
     //Joystick Axis
     public static int axisX = 0;
 	public static int axisY = 1;
-	public static int axisZ = 2;
+    public static int axisZ = 2;
+    //Digital Input/Ouput Assignment
+    public static int PortEncoderA = 0;
+    public static int PortEncoderB =1;
+    public static int StarboardEncoderA = 2;
+    public static int StarboardEncoderB =3;
+
+    //Miscellanous Variables
+    public static double WheelDiameter = 6;
    
 }
