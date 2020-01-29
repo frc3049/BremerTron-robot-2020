@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2202020019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -35,6 +35,8 @@ public class Drivetrain extends SubsystemBase {
 
   private static Gyro m_gyro = new ADXRS450_Gyro();
 
+  private double m_distance;
+
 
   /**
    * Creates a new Drivetrain.
@@ -52,6 +54,28 @@ public class Drivetrain extends SubsystemBase {
 
   public void jdrive(Joystick joystick){
     m_drivetrain.arcadeDrive(joystick.getRawAxis(Constants.axisY), joystick.getRawAxis(Constants.axisX));
+  }
+
+  public double getAngle(){
+    return m_gyro.getAngle();
+  }
+
+  public void resetAngle(){
+    m_gyro.reset();
+  }
+
+  public void resetDistance(){
+    m_portEncoder.reset();
+    m_starboardEncoder.reset();
+    m_distance = 0;
+  }
+
+  public double getDistance(){
+    if (0.5 <= Math.abs(m_portEncoder.getDistance() - m_starboardEncoder.getDistance())){
+      System.out.println("Warning: Encoder discrepancy > 0.5 m");
+    }
+    m_distance = m_portEncoder.getDistance();
+    return m_distance;
   }
   @Override
   public void periodic() {
