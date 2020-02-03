@@ -1,0 +1,100 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package frc.robot.subsystems;
+
+import java.lang.invoke.ConstantCallSite;
+
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.StateSpaceController;
+
+public class Launcher extends SubsystemBase {
+  /**
+   * Creates a new Launcher.
+   */
+  StateSpaceController m_controller;
+  SpeedController m_motor;
+  Encoder m_encoder;
+  PowerDistributionPanel m_pdp;
+  double wheelRadius = 3; // Radius in inches
+
+  public Launcher(PowerDistributionPanel pdp) {
+    initStateSpace();
+    m_motor = new VictorSP(Constants.LauncherMotor);
+    m_encoder = new Encoder(Constants.LauncherEncoderA, Constants.LauncherEncoderB);
+    m_pdp = pdp;
+    m_encoder.setDistancePerPulse((Math.PI/2)*wheelRadius);
+  }
+
+  public synchronized double getTargetVelocity() {
+    return this.targetVelocity;
+  }
+
+  public double getVelocity() {
+    double tangentialVelocity = this.m_encoder.getRate();
+    return tangentialVelocity;
+  }
+
+  public void calculate() {
+    if (m_controller == null) {
+      System.out.println("m_controller is null");
+    }
+    if (!isDisabled()) {
+      m_controller.update();
+      m_controller.setInput((r) -> {
+        // Target velocity (meters/second)
+        r.set(0, 0, getTargetVelocity());
+      });
+      double voltage = m_controller.u.get(0, 0);
+
+      double availableVolt = m_pdp.getVoltage();
+      double percentVolt = voltage / availableVolt;
+      m_motor.set(percentVolt);
+
+      m_controller.setOutput((y) -> {
+        // Position in meters
+        y.set(0, 0, getVelocity()/wheelRadius);
+      });
+      m_controller.predict();
+    }
+  }
+
+  public void initStateSpace() {
+    m_controller = new StateSpaceController();
+    m_controller.init(1, 1, 1);
+    double[][] a = new double[][] { { 0.9677824137332905 } };
+    double[][] a_inv = new double[][] { { 1.0 } };
+    double[][] b = new double[][] { { 1.7431391679380992 } };
+    double[][] c = new double[][] { { 1.0 } };
+    double[][] k = new double[][] { { 0.5480670230517881 } };
+    double[][] kff = new double[][] { { 0.5662237539107275 } };
+    double[][] L = new double[][] { { 0.9999000193613423 } };
+    // Ks is 0
+    // Kv is 0.018482509520349136
+    // Ka is 0.011287719359999997
+
+    StateSpaceController.assign(m_controller.A, a);
+    StateSpaceController.assign(m_controller.A_inv, a_inv);
+    StateSpaceController.assign(m_controller.B, b);
+    StateSpaceController.assign(m_controller.C, c);
+    StateSpaceController.assign(m_controller.K, k);
+    StateSpaceController.assign(m_controller.Kff, kff);
+    StateSpaceController.assign(m_controller.L, L);
+    m_controller.u_min.set(0, 0, -12);
+    m_controller.u_max.set(0, 0, 12);
+  }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+}

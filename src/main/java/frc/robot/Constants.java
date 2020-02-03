@@ -21,6 +21,10 @@ public final class Constants {
     public static int PortMotor2 = 1;
     public static int StarboardMotor1 = 2;
     public static int StarboardMotor2 =3;
+
+    // Other Motor Assignments
+    public static int LauncherMotor = 4;
+
     //Joystick Axis
     public static int axisX = 0;
 	public static int axisY = 1;
@@ -30,6 +34,8 @@ public final class Constants {
     public static int PortEncoderB =1;
     public static int StarboardEncoderA = 2;
     public static int StarboardEncoderB =3;
+    public static int LauncherEncoderA = 4;
+    public static int LauncherEncoderB = 5;
 
     //Miscellanous Variables
     public static double WheelDiameter = 6;
