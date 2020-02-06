@@ -44,8 +44,8 @@ public class Drivetrain extends SubsystemBase {
    */
   public Drivetrain() {
     m_drivetrain = new DifferentialDrive(m_port, m_starboard);
-    m_portEncoder.setDistancePerPulse((Constants.WheelDiameter*3.1415)/4);
-    m_starboardEncoder.setDistancePerPulse((Constants.WheelDiameter*3.1415)/4);
+    m_portEncoder.setDistancePerPulse((Constants.DriveWheelDiameter*3.1415)/4);
+    m_starboardEncoder.setDistancePerPulse((Constants.DriveWheelDiameter*3.1415)/4);
   }
 
 

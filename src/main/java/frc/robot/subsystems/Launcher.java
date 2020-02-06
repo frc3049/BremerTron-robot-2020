@@ -7,15 +7,14 @@
 
 package frc.robot.subsystems;
 
-import java.lang.invoke.ConstantCallSite;
-
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.StateSpaceController;
+import frc.robot.StateSpaceController;  
 
 public class Launcher extends SubsystemBase {
   /**
@@ -25,7 +24,12 @@ public class Launcher extends SubsystemBase {
   SpeedController m_motor;
   Encoder m_encoder;
   PowerDistributionPanel m_pdp;
-  double wheelRadius = 3; // Radius in inches
+  Notifier notifier;
+
+  double wheelRadius = Constants.LauncherWheelDiameter/2; // Radius in inches
+  boolean isDisabled = true;
+  double targetVelocity = 0;
+
 
   public Launcher(PowerDistributionPanel pdp) {
     initStateSpace();
@@ -33,6 +37,13 @@ public class Launcher extends SubsystemBase {
     m_encoder = new Encoder(Constants.LauncherEncoderA, Constants.LauncherEncoderB);
     m_pdp = pdp;
     m_encoder.setDistancePerPulse((Math.PI/2)*wheelRadius);
+    notifier = new Notifier(new Runnable() {
+      @Override
+      public void run() {
+        calculate();
+      }
+    });
+    notifier.startPeriodic(0.02);
   }
 
   public synchronized double getTargetVelocity() {
@@ -51,8 +62,8 @@ public class Launcher extends SubsystemBase {
     if (!isDisabled()) {
       m_controller.update();
       m_controller.setInput((r) -> {
-        // Target velocity (meters/second)
-        r.set(0, 0, getTargetVelocity());
+        // Target velocity (rad/second)
+        r.set(0, 0, getTargetVelocity()/wheelRadius);
       });
       double voltage = m_controller.u.get(0, 0);
 
@@ -61,11 +72,22 @@ public class Launcher extends SubsystemBase {
       m_motor.set(percentVolt);
 
       m_controller.setOutput((y) -> {
-        // Position in meters
+        // velocity in rad  /second
         y.set(0, 0, getVelocity()/wheelRadius);
       });
       m_controller.predict();
     }
+  }
+
+  public synchronized void setTargetVelocity(double vel) {
+    if (vel > Constants.LauncherMaximunSpeed){
+      vel = Constants.LauncherMaximunSpeed;
+    }
+    this.targetVelocity = vel;
+  }
+  
+  public synchronized boolean isDisabled() {
+    return this.isDisabled;
   }
 
   public void initStateSpace() {
@@ -96,5 +118,9 @@ public class Launcher extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public synchronized void setDisabled(boolean isDisabled) {
+    this.isDisabled = isDisabled;
   }
 }

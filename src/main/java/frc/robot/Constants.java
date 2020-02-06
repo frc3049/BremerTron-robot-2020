@@ -38,6 +38,8 @@ public final class Constants {
     public static int LauncherEncoderB = 5;
 
     //Miscellanous Variables
-    public static double WheelDiameter = 6;
+    public static double LauncherWheelDiameter = 6;
+    public static double LauncherMaximunSpeed = 1460; //inches/ second
+    public static double DriveWheelDiameter = 6;
    
 }
