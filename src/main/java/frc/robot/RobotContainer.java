@@ -12,9 +12,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.CollectBalls;
 // import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.GetColorObjective;
 import frc.robot.subsystems.ControlStationManipulator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
 
 
@@ -28,9 +31,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public final ControlStationManipulator m_csManipulator;
   public final Launcher m_launcher;
-
+  public final Intake m_intake;
   public final PowerDistributionPanel m_pdp;
-  
+  public final CollectBalls m_CollectBalls;
   private final GetColorObjective m_autoCommand;
 
   
@@ -54,7 +57,7 @@ public class RobotContainer {
 	public final Joystick aux; // Auxilary Joystick
 
 	// //Auxilary Stick Button Mapping
-	// JoystickButton buttonAux1 = new JoystickButton(aux, 1);
+	//JoystickButton buttonAux1 = new JoystickButton(aux, 1);
 	// JoystickButton buttonAux2 = new JoystickButton(aux, 2);
 	// JoystickButton buttonAux3 = new JoystickButton(aux, 3);
 	// JoystickButton buttonAux4 = new JoystickButton(aux, 4);
@@ -75,7 +78,9 @@ public class RobotContainer {
     m_csManipulator = new ControlStationManipulator();
     m_autoCommand = new GetColorObjective();
     m_launcher = new Launcher(m_pdp);
+    m_intake = new Intake();
     joy = new Joystick(1);
+     m_CollectBalls = new CollectBalls(this,m_intake);
     aux = new Joystick(0);
 
     // Configure the button bindings

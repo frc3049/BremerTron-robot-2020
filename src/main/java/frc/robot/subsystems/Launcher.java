@@ -43,7 +43,7 @@ public class Launcher extends SubsystemBase {
         calculate();
       }
     });
-    notifier.startPeriodic(0.02);
+    //notifier.startPeriodic(0.02);
   }
 
   public synchronized double getTargetVelocity() {

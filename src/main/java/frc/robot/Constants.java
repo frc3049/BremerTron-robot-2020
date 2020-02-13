@@ -41,5 +41,8 @@ public final class Constants {
     public static double LauncherWheelDiameter = 6;
     public static double LauncherMaximunSpeed = 1460; //inches/ second
     public static double DriveWheelDiameter = 6;
-   
+
+    //Intake random
+	public static final int INTAKE_TOP_INTAKE_VICTOR = 6;
+	public static final int INTAKE_BOTTOM_VICTOR = 5;
 }
