@@ -19,23 +19,39 @@ public final class Constants {
     //Drive Motor Assignment
     public static int PortMotor1 = 0;
     public static int PortMotor2 = 1;
-    public static int StarboardMotor1 = 2;
-    public static int StarboardMotor2 =3;
+    public static int StarboardMotor1 = 3;
+    public static int StarboardMotor2 = 4;
 
     // Other Motor Assignments
-    public static int LauncherMotor = 4;
+    public static int LauncherMotor = 5;
+    public static int INTAKE_TOP_INTAKE_VICTOR = 7;
+	public static int INTAKE_BOTTOM_VICTOR = 9;
+
+    //Solenoid Ports
+    public static int IntakeSolenoidFor = 7;
+    public static int IntakeSolenoidRev = 0;
+    public static int ColWheelSolenoidFor = 6;
+    public static int ColWheelSolenoidRev = 1;
+    public static int BallStopSolenoidFor = 4;
+    public static int BallStopSolenoidRev = 3;
+    public static int LifterSolenoidFor = 5;
+    public static int LifterSolenoidRev = 2;
+    
 
     //Joystick Axis
     public static int axisX = 0;
 	public static int axisY = 1;
     public static int axisZ = 2;
     //Digital Input/Ouput Assignment
-    public static int PortEncoderA = 0;
-    public static int PortEncoderB =1;
-    public static int StarboardEncoderA = 2;
-    public static int StarboardEncoderB =3;
-    public static int LauncherEncoderA = 4;
-    public static int LauncherEncoderB = 5;
+    public static int PortEncoderA = 6;
+    public static int PortEncoderB =7;
+    public static int PortEncoderI = 8;
+    public static int StarboardEncoderA = 3;
+    public static int StarboardEncoderB =4;
+    public static int StarboardEncoderI = 5;
+    public static int LauncherEncoderA = 0;
+    public static int LauncherEncoderB = 1;
+    public static int LauncherEncoderI = 2;
 
     //Miscellanous Variables
     public static double LauncherWheelDiameter = 6;
@@ -43,6 +59,5 @@ public final class Constants {
     public static double DriveWheelDiameter = 6;
 
     //Intake random
-	public static final int INTAKE_TOP_INTAKE_VICTOR = 6;
-	public static final int INTAKE_BOTTOM_VICTOR = 5;
+	
 }

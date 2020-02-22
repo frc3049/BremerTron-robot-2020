@@ -20,7 +20,6 @@ public class CollectBalls extends CommandBase {
     // eg. requires(chassis);
     m_robotContainer = robotContainer;
     super.addRequirements(intake);
-    intake.setDefaultCommand(this);
   }
 
   // Called just before this Command runs the first time

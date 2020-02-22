@@ -47,12 +47,15 @@ dependencies {
     nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
     
-    compile group: 'colt', name: 'colt', version: '1.2.0'
+    implementation group: 'colt', name: 'colt', version: '1.2.0'
     implementation wpi.deps.vendor.java()
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
 
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.powermock:powermock-core:2.0.0'
+    testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.0'
+    testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.0'
 
     // Enable simulation gui support. Must check the box in vscode to enable support
     // upon debugging

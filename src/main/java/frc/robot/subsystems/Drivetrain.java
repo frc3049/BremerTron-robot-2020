@@ -78,6 +78,11 @@ public class Drivetrain extends SubsystemBase {
     m_distance = m_portEncoder.getDistance();
     return m_distance;
   }
+
+  public void stop() {
+    m_drivetrain.stopMotor();
+  }
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

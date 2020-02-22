@@ -23,7 +23,7 @@ import frc.robot.subsystems.Intake;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   public static Intake m_intake = null;
-  private RobotContainer m_robotContainer;
+  public static RobotContainer m_robotContainer;
   
 
 
@@ -36,7 +36,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_intake = new Intake();
     m_robotContainer = new RobotContainer();
 
   }
