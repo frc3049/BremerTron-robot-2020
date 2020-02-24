@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.GetColorObjective;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ControlArmMovement;
 import frc.robot.subsystems.Intake;
 
 /**
@@ -22,6 +24,7 @@ import frc.robot.subsystems.Intake;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  public static Climber m_climber = null;
   public static Intake m_intake = null;
   public static RobotContainer m_robotContainer;
   
