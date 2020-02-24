@@ -22,6 +22,7 @@ public final class Constants {
     public static int StarboardMotor1 = 3;
     public static int StarboardMotor2 = 4;
 
+
     // Other Motor Assignments
     public static int LauncherMotor = 5;
     public static int INTAKE_TOP_INTAKE_VICTOR = 7;
@@ -58,6 +59,14 @@ public final class Constants {
     public static double LauncherMaximunSpeed = 1460; //inches/ second
     public static double DriveWheelDiameter = 6;
 
-    //Intake random
-	
+    //Intake
+	public static final int INTAKE_TOP_INTAKE_VICTOR = 6;
+    public static final int INTAKE_BOTTOM_VICTOR = 5;
+    
+    //Control Arm Movement
+    public static final int CONTROL_PANEL_VICTOR = 7;
+    
+    //Climber Solenoids
+	public static final int CLIMBER_SOLENOID_DEPLOY = 9;
+	public static final int CLIMBER_SOLENOID_RETRACT = 10;
 }

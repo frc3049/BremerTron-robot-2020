@@ -7,29 +7,22 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 /**
  * Add your docs here.
  */
-public class Climber extends SubsystemBase {
+public class ControlArmMovement extends SubsystemBase {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  DoubleSolenoid climberSoleniod = null;
+  VictorSP spinWheelVictor = null;
 
-  public Climber() {
-    climberSoleniod = new DoubleSolenoid(Constants.CLIMBER_SOLENOID_DEPLOY, Constants.CLIMBER_SOLENOID_RETRACT);
+  public ControlArmMovement(){
+    spinWheelVictor = new VictorSP(Constants.CONTROL_PANEL_VICTOR);
   }
+
   
-  public void climberUp() {
-    climberSoleniod.set(Value.kForward);
-  }
-  
-  public void climberDown() {
-    climberSoleniod.set(Value.kForward);
-  }
 }

@@ -17,9 +17,6 @@ import frc.robot.Constants;
 import frc.robot.StateSpaceController;  
 
 public class Launcher extends SubsystemBase {
-  /**
-   * Creates a new Launcher.
-   */
   StateSpaceController m_controller;
   SpeedController m_motor;
   Encoder m_encoder;
@@ -31,6 +28,9 @@ public class Launcher extends SubsystemBase {
   double targetVelocity = 0;
 
 
+  /**
+   * Creates a new Launcher.
+   */
   public Launcher(PowerDistributionPanel pdp) {
     initStateSpace();
     m_motor = new VictorSP(Constants.LauncherMotor);
@@ -46,10 +46,16 @@ public class Launcher extends SubsystemBase {
     //notifier.startPeriodic(0.02);
   }
 
+  /**
+   * @return target tangential velocity in inches per second
+   */
   public synchronized double getTargetVelocity() {
     return this.targetVelocity;
   }
 
+  /**
+   * @return actual tangential target velocity in inches per second
+   */
   public double getVelocity() {
     double tangentialVelocity = this.m_encoder.getRate();
     return tangentialVelocity;
@@ -79,6 +85,9 @@ public class Launcher extends SubsystemBase {
     }
   }
 
+  /**
+   * @param vel tangential target velocity in inches per second
+   */
   public synchronized void setTargetVelocity(double vel) {
     if (vel > Constants.LauncherMaximunSpeed){
       vel = Constants.LauncherMaximunSpeed;
@@ -122,5 +131,13 @@ public class Launcher extends SubsystemBase {
 
   public synchronized void setDisabled(boolean isDisabled) {
     this.isDisabled = isDisabled;
+  }
+
+  public StateSpaceController getStateSpaceController() {
+    return m_controller;
+  }
+
+  public double getWheelRadius() {
+    return wheelRadius;
   }
 }
