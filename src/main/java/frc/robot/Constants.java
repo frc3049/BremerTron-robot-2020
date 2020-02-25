@@ -24,10 +24,10 @@ public final class Constants {
 
 
     // Other Motor Assignments
-    public static int LauncherMotor = 5;
+    public static int LauncherMotor = 9;
     public static int INTAKE_TOP_INTAKE_VICTOR = 7;
-	public static int INTAKE_BOTTOM_VICTOR = 9;
-
+	public static int INTAKE_BOTTOM_VICTOR = 5;
+    public static final int CONTROL_PANEL_VICTOR = 6;
     //Solenoid Ports
     public static int IntakeSolenoidFor = 7;
     public static int IntakeSolenoidRev = 0;
@@ -58,13 +58,9 @@ public final class Constants {
     public static double LauncherWheelDiameter = 6;
     public static double LauncherMaximunSpeed = 1460; //inches/ second
     public static double DriveWheelDiameter = 6;
-
-    //Intake
-	public static final int INTAKE_TOP_INTAKE_VICTOR = 6;
-    public static final int INTAKE_BOTTOM_VICTOR = 5;
     
     //Control Arm Movement
-    public static final int CONTROL_PANEL_VICTOR = 7;
+    
     
     //Climber Solenoids
 	public static final int CLIMBER_SOLENOID_DEPLOY = 9;

@@ -35,6 +35,7 @@ public class ArcadeDriveCommand extends CommandBase {
   @Override
   public void execute() {
     m_drivetrain.jdrive(m_robotContainer.joy);
+    // System.out.println("ArcadeDriveCommand is running");
 
   }
 

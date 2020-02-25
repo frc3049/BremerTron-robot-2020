@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.subsystems.Climber;
 
@@ -29,9 +28,9 @@ public class Levitate extends InstantCommand {
   }
 
   // Called once when the command executes
-  @Override
-  public void initialize() {
-    Robot.m_climber.climberUp();
-  }
+  // @Override
+  // public void initialize() {
+  //   Robot.m_climber.climberUp();
+  // }
 
 }

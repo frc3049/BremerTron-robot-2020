@@ -36,7 +36,7 @@ public class ShootBalls extends CommandBase {
   @Override
   public void execute() {
     if (m_robotContainer.joy.getRawButtonPressed(4) && launcherState){
-      m_robotContainer.m_launcher.setTargetVelocity(1464);// inches/ second Maximun (1400 inches/second)
+      m_robotContainer.m_launcher.setTargetVelocity(700);// inches/ second Maximun (1400 inches/second)
       launcherState = false;
     }else if (m_robotContainer.joy.getRawButtonPressed(4) && !launcherState){
       m_robotContainer.m_launcher.setTargetVelocity(0);

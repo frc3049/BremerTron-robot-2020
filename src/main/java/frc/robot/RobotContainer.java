@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -17,6 +18,8 @@ import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.CollectBalls;
 // import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.GetColorObjective;
+import frc.robot.commands.ShootBalls;
+import frc.robot.subsystems.ControlArmMovement;
 import frc.robot.subsystems.ControlStationManipulator;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -38,6 +41,8 @@ public class RobotContainer {
   public final CollectBalls m_CollectBalls;
   private final GetColorObjective m_autoCommand;
   public final Drivetrain m_drivetrain;
+  public final Compressor m_compressor;
+  public final ControlArmMovement m_controlarm;
 
   public final Joystick joy; // Drive Joystick
 	// public final Joystick aux; // Auxilary Joystick
@@ -49,7 +54,9 @@ public class RobotContainer {
    */
   public RobotContainer() {
     m_pdp = new PowerDistributionPanel();
+    m_compressor = new Compressor(1);
     m_csManipulator = new ControlStationManipulator();
+    m_controlarm = new ControlArmMovement();
     m_autoCommand = new GetColorObjective();
     m_launcher = new Launcher(m_pdp);
     m_intake = new Intake();
@@ -100,7 +107,7 @@ public class RobotContainer {
 
   private void setDefaultCommands(){
     m_drivetrain.setDefaultCommand(new ArcadeDriveCommand(this));
-    
+    m_launcher.setDefaultCommand(new ShootBalls(this));
     m_intake.setDefaultCommand(m_CollectBalls);
   }
 
