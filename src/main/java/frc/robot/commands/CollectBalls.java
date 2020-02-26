@@ -8,18 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake;
 
 public class CollectBalls extends CommandBase {
   private RobotContainer m_robotContainer;
+  private Intake m_intake;
 
-  public CollectBalls(RobotContainer robotContainer, Intake intake ) {
+  public CollectBalls(RobotContainer robotContainer ) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     m_robotContainer = robotContainer;
-    super.addRequirements(intake);
+    m_intake = m_robotContainer.m_intake;
+    super.addRequirements(m_intake);
   }
 
   // Called just before this Command runs the first time
@@ -30,9 +31,7 @@ public class CollectBalls extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    if (m_robotContainer.joy.getRawButtonPressed(9)){
-      System.out.println("test");
-    }
+    m_intake.turnOnIntake();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,6 +43,7 @@ public class CollectBalls extends CommandBase {
   // Called once after isFinished returns true
   @Override
   public void end(boolean interrupted) {
+    m_intake.turnOffIntake();
   }
 
 }

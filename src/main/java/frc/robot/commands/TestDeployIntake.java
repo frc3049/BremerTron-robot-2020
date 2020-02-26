@@ -9,23 +9,25 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class Levitate extends InstantCommand {
+public class TestDeployIntake extends InstantCommand {
   private RobotContainer m_robotContainer;
-  private Climber m_climber;
-  public Levitate(RobotContainer robotContainer) {
+  private Intake m_intake;
+
+  public TestDeployIntake(RobotContainer robotContainer) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_robotContainer = robotContainer;
-    m_climber = m_robotContainer.m_climber;
-    addRequirements(m_climber);
+    m_intake = m_robotContainer.m_intake;
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_intake.deploy();
   }
 }

@@ -13,10 +13,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.GetColorObjective;
-import frc.robot.commands.ShootBalls;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.ControlArmMovement;
-import frc.robot.subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,8 +22,6 @@ import frc.robot.subsystems.Intake;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  public static Climber m_climber = null;
-  public static Intake m_intake = null;
   public static RobotContainer m_robotContainer;
 
 
@@ -41,6 +35,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_robotContainer.m_intake.retract();
+    m_robotContainer.m_climber.climberDown();
+    m_robotContainer.m_controlarm.retract();
 
   }
 
@@ -66,7 +63,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    m_robotContainer.m_compressor.stop();
+    // m_robotContainer.m_compressor.stop();
   }
 
   @Override
@@ -79,7 +76,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_robotContainer.m_compressor.start();
+    // m_robotContainer.m_compressor.start();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -99,7 +96,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    m_robotContainer.m_compressor.start();
+    // m_robotContainer.m_compressor.start();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,10 +21,19 @@ public class ControlArmMovement extends SubsystemBase {
   // here. Call these from Commands.
 
   VictorSP spinWheelVictor = null;
+  DoubleSolenoid controlArmSolenoid = null;
 
   public ControlArmMovement(){
     spinWheelVictor = new VictorSP(Constants.CONTROL_PANEL_VICTOR);
+    controlArmSolenoid = new DoubleSolenoid(1, Constants.ColWheelSolenoidFor, Constants.ColWheelSolenoidRev);
   }
 
+  public void deploy(){
+    controlArmSolenoid.set(Value.kForward);
+  }
+
+  public void retract(){
+    controlArmSolenoid.set(Value.kReverse);
+  }
   
 }

@@ -22,7 +22,7 @@ public class Climber extends SubsystemBase {
   DoubleSolenoid climberSoleniod = null;
 
   public Climber() {
-    climberSoleniod = new DoubleSolenoid(1, Constants.CLIMBER_SOLENOID_DEPLOY, Constants.CLIMBER_SOLENOID_RETRACT);
+    climberSoleniod = new DoubleSolenoid(1, Constants.ClimberSolenoidFor, Constants.ClimberSolenoidRev);
   }
   
   public void climberUp() {
@@ -30,6 +30,6 @@ public class Climber extends SubsystemBase {
   }
   
   public void climberDown() {
-    climberSoleniod.set(Value.kForward);
+    climberSoleniod.set(Value.kReverse);
   }
 }

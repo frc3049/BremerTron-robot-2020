@@ -35,8 +35,8 @@ public final class Constants {
     public static int ColWheelSolenoidRev = 1;
     public static int BallStopSolenoidFor = 4;
     public static int BallStopSolenoidRev = 3;
-    public static int LifterSolenoidFor = 5;
-    public static int LifterSolenoidRev = 2;
+    public static int ClimberSolenoidFor = 5;
+    public static int ClimberSolenoidRev = 2;
     
 
     //Joystick Axis
@@ -59,10 +59,4 @@ public final class Constants {
     public static double LauncherMaximunSpeed = 1460; //inches/ second
     public static double DriveWheelDiameter = 6;
     
-    //Control Arm Movement
-    
-    
-    //Climber Solenoids
-	public static final int CLIMBER_SOLENOID_DEPLOY = 9;
-	public static final int CLIMBER_SOLENOID_RETRACT = 10;
 }

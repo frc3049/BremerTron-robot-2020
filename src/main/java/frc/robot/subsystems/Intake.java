@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,11 +21,12 @@ public class Intake extends SubsystemBase {
   // here. Call these from Commands.
   VictorSP bottomIntakeVictor = null;
   VictorSP topIntakeVictor = null;
+  DoubleSolenoid intakeSolenoid = null;
 
   public Intake() {
     bottomIntakeVictor = new VictorSP(Constants.INTAKE_BOTTOM_VICTOR);
     topIntakeVictor = new VictorSP(Constants.INTAKE_TOP_INTAKE_VICTOR);
-
+    intakeSolenoid = new DoubleSolenoid(1, Constants.IntakeSolenoidFor, Constants.IntakeSolenoidRev);
   }
 
   public void turnOnIntake(){
@@ -47,4 +50,11 @@ public class Intake extends SubsystemBase {
 
   }
 
+  public void deploy(){
+    intakeSolenoid.set(Value.kForward);
+  }
+
+  public void retract(){
+    intakeSolenoid.set(Value.kReverse);
+  }
 }

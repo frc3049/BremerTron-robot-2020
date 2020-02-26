@@ -19,6 +19,11 @@ import frc.robot.commands.CollectBalls;
 // import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.GetColorObjective;
 import frc.robot.commands.ShootBalls;
+import frc.robot.commands.TestDeployContArm;
+import frc.robot.commands.TestDeployIntake;
+import frc.robot.commands.TestRetractContArm;
+import frc.robot.commands.TestRetractIntake;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlArmMovement;
 import frc.robot.subsystems.ControlStationManipulator;
 import frc.robot.subsystems.Drivetrain;
@@ -38,11 +43,11 @@ public class RobotContainer {
   public final Launcher m_launcher;
   public final Intake m_intake;
   public final PowerDistributionPanel m_pdp;
-  public final CollectBalls m_CollectBalls;
   private final GetColorObjective m_autoCommand;
   public final Drivetrain m_drivetrain;
   public final Compressor m_compressor;
   public final ControlArmMovement m_controlarm;
+  public final Climber m_climber;
 
   public final Joystick joy; // Drive Joystick
 	// public final Joystick aux; // Auxilary Joystick
@@ -60,8 +65,9 @@ public class RobotContainer {
     m_autoCommand = new GetColorObjective();
     m_launcher = new Launcher(m_pdp);
     m_intake = new Intake();
+    m_climber = new Climber();
     joy = new Joystick(1);
-     m_CollectBalls = new CollectBalls(this,m_intake);
+    
     // aux = new Joystick(0);
     m_drivetrain = new Drivetrain();
 
@@ -80,15 +86,15 @@ public class RobotContainer {
   //   //Drive Stick Button Mapping
 	// JoystickButton button1 = new JoystickButton(joy, 1);
 	// JoystickButton button2 = new JoystickButton(joy, 2);
-	// JoystickButton button3 = new JoystickButton(joy, 3);
+	JoystickButton button3 = new JoystickButton(joy, 3);
 	// JoystickButton button4 = new JoystickButton(joy, 4);
 	// JoystickButton button5 = new JoystickButton(joy, 5);
-	// JoystickButton button6 = new JoystickButton(joy, 6);
-	// JoystickButton button7 = new JoystickButton(joy, 7);
+	JoystickButton button6 = new JoystickButton(joy, 6);
+	JoystickButton button7 = new JoystickButton(joy, 7);
 	// JoystickButton button8 = new JoystickButton(joy, 8);
 	// JoystickButton button9 = new JoystickButton(joy, 9);
-	// JoystickButton button10 = new JoystickButton(joy, 10);
-  // JoystickButton button11 = new JoystickButton(joy, 11);
+	JoystickButton button10 = new JoystickButton(joy, 10);
+  JoystickButton button11 = new JoystickButton(joy, 11);
   
   // //Auxilary Stick Button Mapping
 	// JoystickButton buttonAux1 = new JoystickButton(aux, 1);
@@ -103,12 +109,18 @@ public class RobotContainer {
 	// JoystickButton buttonAux10 = new JoystickButton(aux, 10);
 	// JoystickButton buttonAux11 = new JoystickButton(aux, 11);
 
+
+  button3.toggleWhenPressed(new CollectBalls(this));
+  button6.whenPressed(new TestDeployIntake(this));
+  button7.whenPressed(new TestRetractIntake(this));
+  button11.whenPressed(new TestDeployContArm(this));
+  button10.whenPressed(new TestRetractContArm(this));
   }
 
   private void setDefaultCommands(){
     m_drivetrain.setDefaultCommand(new ArcadeDriveCommand(this));
     m_launcher.setDefaultCommand(new ShootBalls(this));
-    m_intake.setDefaultCommand(m_CollectBalls);
+    // m_intake.setDefaultCommand(new CollectBalls(this));
   }
 
   /**
