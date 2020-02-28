@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.m_intake.retract();
     m_robotContainer.m_climber.climberDown();
     m_robotContainer.m_controlarm.retract();
+    m_robotContainer.m_launcher.stopFeedBall();
 
   }
 
@@ -64,6 +65,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     // m_robotContainer.m_compressor.stop();
+    m_robotContainer.m_launcher.setDisabled(true);
   }
 
   @Override

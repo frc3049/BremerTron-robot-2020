@@ -9,25 +9,26 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Launcher;
 
-public class TestClimb extends CommandBase {
+public class TestFeedBall extends CommandBase {
   private RobotContainer m_robotContainer;
-  private Climber m_climber;
+  private Launcher m_launcher;
   /**
-   * Creates a new TestClimb.
+   * Creates a new TestFeedBall.
    */
-  public TestClimb(RobotContainer robotContainer) {
+  public TestFeedBall(RobotContainer robotContainer) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_robotContainer = robotContainer;
-    m_climber = m_robotContainer.m_climber;
-    addRequirements(m_climber);
+    m_launcher = m_robotContainer.m_launcher;
+    // addRequirements(m_launcher);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_climber.climberUp();
+    System.out.println("worky work");
+    m_launcher.feedBall();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,7 +39,7 @@ public class TestClimb extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_climber.climberDown();
+    m_launcher.stopFeedBall();
   }
 
   // Returns true when the command should end.

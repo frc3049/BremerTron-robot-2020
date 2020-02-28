@@ -8,6 +8,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -17,10 +19,11 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 public class ControlStationManipulator extends SubsystemBase {
   private final I2C.Port i2cPort = I2C.Port.kOnboard; 
-  public final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  public final ColorSensorV3 m_colorSensor;
+  public final AnalogInput m_UlSensor;
   
-  private final ColorMatch m_colorMatcher = new ColorMatch();
-
+  private final ColorMatch m_colorMatcher;
+  private static double kValuetoInches = 0.125;
 
   private final Color kBlueTarget = ColorMatch.makeColor(0.13, 0.43, 0.43);
   private final Color kGreenTarget = ColorMatch.makeColor(0.17, 0.58, 0.25);
@@ -31,6 +34,9 @@ public class ControlStationManipulator extends SubsystemBase {
    */
   
   public ControlStationManipulator() {
+    m_colorSensor = new ColorSensorV3(i2cPort);
+    m_colorMatcher = new ColorMatch();
+    m_UlSensor = new AnalogInput(Constants.UltraSonicSensor);
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
@@ -66,6 +72,15 @@ public class ControlStationManipulator extends SubsystemBase {
     // System.out.println("Reading Color");
   }
 
+  public ColorMatchResult getColor(){
+    Color detectedColor = m_colorSensor.getColor();
+    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+    return match;
+  }
+
+  public double getDistance(){
+    return m_UlSensor.getValue()*kValuetoInches;
+  }
 
   @Override
   public void periodic() {

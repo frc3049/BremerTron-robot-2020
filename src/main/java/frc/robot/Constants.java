@@ -54,6 +54,9 @@ public final class Constants {
     public static int LauncherEncoderB = 1;
     public static int LauncherEncoderI = 2;
 
+    //Analog Input
+    public static int UltraSonicSensor = 0;
+
     //Miscellanous Variables
     public static double LauncherWheelDiameter = 6;
     public static double LauncherMaximunSpeed = 1460; //inches/ second

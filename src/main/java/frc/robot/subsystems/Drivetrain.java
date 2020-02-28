@@ -31,8 +31,8 @@ public class Drivetrain extends SubsystemBase {
   private static SpeedController m_aftStarboard = new VictorSP(Constants.StarboardMotor2);
   private static SpeedControllerGroup m_starboard = new SpeedControllerGroup(m_foreStarboard, m_aftStarboard);
 
-  private static Encoder m_portEncoder = new Encoder(Constants.PortEncoderA, Constants.PortEncoderB);
-  private static Encoder m_starboardEncoder = new Encoder(Constants.StarboardEncoderA, Constants.StarboardEncoderB);
+  private static Encoder m_portEncoder = new Encoder(Constants.PortEncoderA, Constants.PortEncoderB, Constants.PortEncoderI);
+  private static Encoder m_starboardEncoder = new Encoder(Constants.StarboardEncoderA, Constants.StarboardEncoderB, Constants.StarboardEncoderI);
 
   private static Gyro m_gyro = new ADXRS450_Gyro();
 
@@ -44,8 +44,8 @@ public class Drivetrain extends SubsystemBase {
    */
   public Drivetrain() {
     m_drivetrain = new DifferentialDrive(m_port, m_starboard);
-    m_portEncoder.setDistancePerPulse((Constants.DriveWheelDiameter*3.1415)/4);
-    m_starboardEncoder.setDistancePerPulse((Constants.DriveWheelDiameter*3.1415)/4);
+    m_portEncoder.setDistancePerPulse((Constants.DriveWheelDiameter*Math.PI));
+    m_starboardEncoder.setDistancePerPulse((Constants.DriveWheelDiameter*Math.PI));
   }
 
 
@@ -54,7 +54,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void jdrive(Joystick joystick){
-    m_drivetrain.arcadeDrive(joystick.getRawAxis(Constants.axisY), joystick.getRawAxis(Constants.axisX));
+    m_drivetrain.arcadeDrive(Math.pow(joystick.getRawAxis(Constants.axisY), 3), joystick.getRawAxis(Constants.axisX)/2);
   }
 
   public double getAngle(){
@@ -72,8 +72,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getDistance(){
-    if (0.5 <= Math.abs(m_portEncoder.getDistance() - m_starboardEncoder.getDistance())){
-      System.out.println("Warning: Encoder discrepancy > 0.5 m");
+    if (Math.abs(m_portEncoder.getDistance() - m_starboardEncoder.getDistance()) >= 2){
+      // Sys\tem.out.println("Warning: Encoder discrepancy > 2 in");
     }
     m_distance = m_portEncoder.getDistance();
     return m_distance;

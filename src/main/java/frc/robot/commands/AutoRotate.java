@@ -9,41 +9,56 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Drivetrain;
 
-public class TestClimb extends CommandBase {
+public class AutoRotate extends CommandBase {
   private RobotContainer m_robotContainer;
-  private Climber m_climber;
+  private Drivetrain m_drivetrain;
+  private double m_speed;
+  private double m_angle;
+  private double m_desired = 6;
+
   /**
-   * Creates a new TestClimb.
+   * Creates a new AutoRotate.
    */
-  public TestClimb(RobotContainer robotContainer) {
+  public AutoRotate(RobotContainer robotContainer, double angle) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_robotContainer = robotContainer;
-    m_climber = m_robotContainer.m_climber;
-    addRequirements(m_climber);
+    m_drivetrain = m_robotContainer.m_drivetrain;
+    addRequirements(m_drivetrain);
+    m_angle = angle;
+    if(m_angle > 0){
+      m_speed = m_desired/m_robotContainer.m_pdp.getVoltage();
+    }else if(m_angle < 0){
+      m_speed = -m_desired/m_robotContainer.m_pdp.getVoltage();
+    }
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_climber.climberUp();
+    m_drivetrain.resetAngle();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_drivetrain.drive(0, m_speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_climber.climberDown();
+    m_drivetrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(Math.abs(m_drivetrain.getAngle()) >= Math.abs(m_angle)){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

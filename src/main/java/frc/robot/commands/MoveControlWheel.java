@@ -7,44 +7,55 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.ColorMatchResult;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.ControlArmMovement;
+import frc.robot.subsystems.ControlStationManipulator;
 
-public class CollectBalls extends CommandBase {
+public class MoveControlWheel extends CommandBase {
   private RobotContainer m_robotContainer;
-  private Intake m_intake;
+  private ControlArmMovement m_caMovement;
+  private ControlStationManipulator m_csManipulator;
+  private ColorMatchResult previousColor;
+  private ColorMatchResult currentColor;
+  private double revolutions;
 
-  public CollectBalls(RobotContainer robotContainer ) {
+  public MoveControlWheel(RobotContainer robotContainer) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     m_robotContainer = robotContainer;
-    m_intake = m_robotContainer.m_intake;
-    super.addRequirements(m_intake);
+    m_caMovement = m_robotContainer.m_controlarm;
+    m_csManipulator = m_robotContainer.m_csManipulator;
+    addRequirements(m_caMovement, m_csManipulator);
   }
 
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    m_intake.deploy();  
+    m_caMovement.deploy();
+    previousColor = m_csManipulator.getColor();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    m_intake.turnOnIntake();
+    m_caMovement.spin();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
+    currentColor = m_csManipulator.getColor();
+    if (previousColor != currentColor){
+      revolutions = revolutions + 0.125;
+    }
+    if (revolutions >= 3){
+      return true;
+    }else {
     return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  public void end(boolean interrupted) {
-    m_intake.turnOffIntake();
+    }
   }
 
 }

@@ -7,13 +7,16 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.DataLogger;
 import frc.robot.StateSpaceController;  
 
 public class Launcher extends SubsystemBase {
@@ -22,6 +25,8 @@ public class Launcher extends SubsystemBase {
   Encoder m_encoder;
   PowerDistributionPanel m_pdp;
   Notifier notifier;
+  DoubleSolenoid feedSolenoid;
+  DataLogger m_dLogger;
 
   double wheelRadius = Constants.LauncherWheelDiameter/2; // Radius in inches
   boolean isDisabled = true;
@@ -34,9 +39,11 @@ public class Launcher extends SubsystemBase {
   public Launcher(PowerDistributionPanel pdp) {
     initStateSpace();
     m_motor = new VictorSP(Constants.LauncherMotor);
-    m_encoder = new Encoder(Constants.LauncherEncoderA, Constants.LauncherEncoderB);
+    m_encoder = new Encoder(Constants.LauncherEncoderA, Constants.LauncherEncoderB, Constants.LauncherEncoderI);
     m_pdp = pdp;
-    m_encoder.setDistancePerPulse((Math.PI/2)*wheelRadius);
+    m_dLogger = new DataLogger("launchervelocity");
+    feedSolenoid = new DoubleSolenoid(1,Constants.BallStopSolenoidFor, Constants.BallStopSolenoidRev);
+    m_encoder.setDistancePerPulse(((2*Math.PI)*wheelRadius));
     notifier = new Notifier(new Runnable() {
       @Override
       public void run() {
@@ -44,6 +51,12 @@ public class Launcher extends SubsystemBase {
       }
     });
     notifier.startPeriodic(0.02);
+    m_dLogger.add("Launcher Actual Velocity", ()->this.getVelocity());
+    m_dLogger.add("Launcher Target Velocity", ()->this.getTargetVelocity());
+    m_dLogger.add("Launcher Expected Velocity", ()->m_controller.y_est.get(0, 0)*wheelRadius);
+    m_dLogger.add("Launcher Motor Current", ()->m_pdp.getCurrent(1));
+    m_dLogger.add("Launcher Motor Voltage", ()->m_controller.u.get(0,0));
+
   }
 
   /**
@@ -127,6 +140,9 @@ public class Launcher extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if(!isDisabled()){
+      m_dLogger.log();
+    }
   }
 
   public synchronized void setDisabled(boolean isDisabled) {
@@ -140,4 +156,15 @@ public class Launcher extends SubsystemBase {
   public double getWheelRadius() {
     return wheelRadius;
   }
+
+  public void feedBall(){
+    feedSolenoid.set(Value.kForward);
+  }
+  public void stopFeedBall(){
+    feedSolenoid.set(Value.kReverse);
+  }
+  public void stop(){
+   m_motor.stopMotor();   
+  }
 }
+

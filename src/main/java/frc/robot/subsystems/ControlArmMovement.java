@@ -36,4 +36,7 @@ public class ControlArmMovement extends SubsystemBase {
     controlArmSolenoid.set(Value.kReverse);
   }
   
+  public void spin(){
+    spinWheelVictor.set(0.7);
+  }
 }

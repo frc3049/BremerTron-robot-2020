@@ -31,8 +31,8 @@ public class Intake extends SubsystemBase {
 
   public void turnOnIntake(){
 
-    bottomIntakeVictor.set(0.6);
-    topIntakeVictor.set(1);
+    bottomIntakeVictor.set(-0.6);
+    topIntakeVictor.set(-1);
 
   }
 
@@ -45,8 +45,8 @@ public class Intake extends SubsystemBase {
 
   public void reverseIntake(){
 
-    bottomIntakeVictor.set(-0.6);
-    topIntakeVictor.set(-1);
+    bottomIntakeVictor.set(0.6);
+    topIntakeVictor.set(1);
 
   }
 
