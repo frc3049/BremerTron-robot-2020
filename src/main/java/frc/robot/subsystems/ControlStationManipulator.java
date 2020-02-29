@@ -79,7 +79,7 @@ public class ControlStationManipulator extends SubsystemBase {
   }
 
   public double getDistance(){
-    return m_UlSensor.getValue()*kValuetoInches;
+    return m_UlSensor.getValue()*kValuetoInches-26;
   }
 
   @Override

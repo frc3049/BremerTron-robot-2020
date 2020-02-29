@@ -56,6 +56,7 @@ public final class Constants {
 
     //Analog Input
     public static int UltraSonicSensor = 0;
+    public static int UltraSonicSensorLauncher = 1;
 
     //Miscellanous Variables
     public static double LauncherWheelDiameter = 6;

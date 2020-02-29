@@ -39,4 +39,7 @@ public class ControlArmMovement extends SubsystemBase {
   public void spin(){
     spinWheelVictor.set(0.7);
   }
+  public void stop(){
+    spinWheelVictor.stopMotor();
+  }
 }

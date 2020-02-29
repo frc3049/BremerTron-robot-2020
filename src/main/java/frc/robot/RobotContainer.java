@@ -17,15 +17,16 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.CollectBalls;
 import frc.robot.commands.GetColorObjective;
+// import frc.robot.commands.LowGoal;
 import frc.robot.commands.MoveControlWheel;
 import frc.robot.commands.SetSpeed;
 import frc.robot.commands.ShootBall;
 import frc.robot.commands.TestClimb;
 import frc.robot.commands.TestDeployContArm;
-import frc.robot.commands.TestDeployIntake;
+import frc.robot.commands.DeployIntake;
 // import frc.robot.commands.TestFeedBall;
 import frc.robot.commands.TestRetractContArm;
-import frc.robot.commands.TestRetractIntake;
+import frc.robot.commands.RetractIntake;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlArmMovement;
 import frc.robot.subsystems.ControlStationManipulator;
@@ -109,16 +110,16 @@ public class RobotContainer {
     // JoystickButton buttonAux9 = new JoystickButton(aux, 9);
     // JoystickButton buttonAux10 = new JoystickButton(aux, 10);
     // JoystickButton buttonAux11 = new JoystickButton(aux, 11);
-
-  button2.toggleWhenPressed(new ShootBall(this));
-  button3.toggleWhenPressed(new CollectBalls(this));
-  button4.toggleWhenPressed(new SetSpeed(this));
-  button5.whenPressed(new MoveControlWheel(this));
-  button6.whenPressed(new TestDeployIntake(this));
-  button7.whenPressed(new TestRetractIntake(this));
-  button8.toggleWhenPressed(new TestClimb(this));
-  button11.whenPressed(new TestDeployContArm(this));
-  button10.whenPressed(new TestRetractContArm(this));
+    // button1.whenPressed(new LowGoal(this));
+    button2.toggleWhenPressed(new ShootBall(this));
+    button3.toggleWhenPressed(new CollectBalls(this));
+    button4.toggleWhenPressed(new SetSpeed(this));
+    button5.whenPressed(new MoveControlWheel(this));
+    button6.whenPressed(new DeployIntake(this));
+    button7.whenPressed(new RetractIntake(this));
+    button8.toggleWhenPressed(new TestClimb(this));
+    button11.whenPressed(new TestDeployContArm(this));
+    button10.whenPressed(new TestRetractContArm(this));
   }
 
   private void setDefaultCommands(){

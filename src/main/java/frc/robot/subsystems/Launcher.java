@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Notifier;
@@ -17,15 +18,17 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.DataLogger;
-import frc.robot.StateSpaceController;  
+import frc.robot.StateSpaceController;
+
 
 public class Launcher extends SubsystemBase {
   StateSpaceController m_controller;
-  SpeedController m_motor;
+  public SpeedController m_motor;
   Encoder m_encoder;
   PowerDistributionPanel m_pdp;
   Notifier notifier;
   DoubleSolenoid feedSolenoid;
+  AnalogInput UlSensor;
   DataLogger m_dLogger;
 
   double wheelRadius = Constants.LauncherWheelDiameter/2; // Radius in inches
@@ -43,6 +46,7 @@ public class Launcher extends SubsystemBase {
     m_pdp = pdp;
     m_dLogger = new DataLogger("launchervelocity");
     feedSolenoid = new DoubleSolenoid(1,Constants.BallStopSolenoidFor, Constants.BallStopSolenoidRev);
+    UlSensor = new AnalogInput(Constants.UltraSonicSensorLauncher);
     m_encoder.setDistancePerPulse(((2*Math.PI)*wheelRadius));
     notifier = new Notifier(new Runnable() {
       @Override
@@ -165,6 +169,16 @@ public class Launcher extends SubsystemBase {
   }
   public void stop(){
    m_motor.stopMotor();   
+  }
+  public boolean ballPresent(){
+    if(UlSensor.getValue()*0.125< 8){
+      return true;
+    } else{
+      return false;
+    }
+  }
+  public double getDistance(){
+    return UlSensor.getValue()*0.125;
   }
 }
 

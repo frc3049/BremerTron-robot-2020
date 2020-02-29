@@ -14,11 +14,11 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TestDeployIntake extends InstantCommand {
+public class DeployIntake extends InstantCommand {
   private RobotContainer m_robotContainer;
   private Intake m_intake;
 
-  public TestDeployIntake(RobotContainer robotContainer) {
+  public DeployIntake(RobotContainer robotContainer) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_robotContainer = robotContainer;
     m_intake = m_robotContainer.m_intake;
