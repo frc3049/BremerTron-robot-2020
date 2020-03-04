@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,6 +22,7 @@ public class ControlStationManipulator extends SubsystemBase {
   private final I2C.Port i2cPort = I2C.Port.kOnboard; 
   public final ColorSensorV3 m_colorSensor;
   public final AnalogInput m_UlSensor;
+  private final RobotContainer m_robotContainer;
   
   private final ColorMatch m_colorMatcher;
   private static double kValuetoInches = 0.125;
@@ -33,7 +35,7 @@ public class ControlStationManipulator extends SubsystemBase {
    * Creates a new ControlStationManipulator.
    */
   
-  public ControlStationManipulator() {
+  public ControlStationManipulator(RobotContainer robotContainer) {
     m_colorSensor = new ColorSensorV3(i2cPort);
     m_colorMatcher = new ColorMatch();
     m_UlSensor = new AnalogInput(Constants.UltraSonicSensor);
@@ -41,6 +43,7 @@ public class ControlStationManipulator extends SubsystemBase {
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
+    m_robotContainer = robotContainer;
   }
 
   public  void readColor(){

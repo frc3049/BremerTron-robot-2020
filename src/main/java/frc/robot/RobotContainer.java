@@ -54,7 +54,7 @@ public class RobotContainer {
   public final Climber m_climber;
 
   public final Joystick joy; // Drive Joystick
-  // public final Joystick aux; // Auxilary Joystick
+  public final Joystick aux; // Auxilary Joystick
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -62,13 +62,14 @@ public class RobotContainer {
   public RobotContainer() {
     m_pdp = new PowerDistributionPanel();
     m_compressor = new Compressor(1);
-    m_csManipulator = new ControlStationManipulator();
-    m_controlarm = new ControlArmMovement();
+    m_csManipulator = new ControlStationManipulator(this);
+    m_controlarm = new ControlArmMovement(this);
     m_autoCommand = new GetColorObjective();
     m_launcher = new Launcher(m_pdp);
-    m_intake = new Intake();
-    m_climber = new Climber();
+    m_intake = new Intake(this);
+    m_climber = new Climber(this);
     joy = new Joystick(1);
+    aux = new Joystick(0);
 
     // aux = new Joystick(0);
     m_drivetrain = new Drivetrain();
@@ -100,26 +101,33 @@ public class RobotContainer {
 
     // //Auxilary Stick Button Mapping
     // JoystickButton buttonAux1 = new JoystickButton(aux, 1);
-    // JoystickButton buttonAux2 = new JoystickButton(aux, 2);
-    // JoystickButton buttonAux3 = new JoystickButton(aux, 3);
-    // JoystickButton buttonAux4 = new JoystickButton(aux, 4);
-    // JoystickButton buttonAux5 = new JoystickButton(aux, 5);
+    JoystickButton buttonAux2 = new JoystickButton(aux, 2);
+    JoystickButton buttonAux3 = new JoystickButton(aux, 3);
+    JoystickButton buttonAux4 = new JoystickButton(aux, 4);
+    JoystickButton buttonAux5 = new JoystickButton(aux, 5);
     // JoystickButton buttonAux6 = new JoystickButton(aux, 6);
-    // JoystickButton buttonAux7 = new JoystickButton(aux, 7);
+    JoystickButton buttonAux7 = new JoystickButton(aux, 7);
     // JoystickButton buttonAux8 = new JoystickButton(aux, 8);
     // JoystickButton buttonAux9 = new JoystickButton(aux, 9);
-    // JoystickButton buttonAux10 = new JoystickButton(aux, 10);
+    JoystickButton buttonAux10 = new JoystickButton(aux, 10);
     // JoystickButton buttonAux11 = new JoystickButton(aux, 11);
     // button1.whenPressed(new LowGoal(this));
-    button2.toggleWhenPressed(new ShootBall(this));
+    button2.whenPressed(new ShootBall(this));
     button3.toggleWhenPressed(new CollectBalls(this));
-    button4.toggleWhenPressed(new SetSpeed(this));
+    button4.toggleWhenPressed(new SetSpeed(this, 1000));
     button5.whenPressed(new MoveControlWheel(this));
     button6.whenPressed(new DeployIntake(this));
     button7.whenPressed(new RetractIntake(this));
     button8.toggleWhenPressed(new TestClimb(this));
     button11.whenPressed(new TestDeployContArm(this));
     button10.whenPressed(new TestRetractContArm(this));
+
+    buttonAux2.whenPressed(new ShootBall(this));
+    buttonAux3.toggleWhenPressed(new CollectBalls(this));
+    buttonAux7.whenPressed(new RetractIntake(this));
+    buttonAux4.toggleWhenPressed(new SetSpeed(this, 1000));
+    buttonAux5.toggleWhenPressed(new SetSpeed(this, 1200));
+    buttonAux10.whenPressed(new MoveControlWheel(this));
   }
 
   private void setDefaultCommands(){

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 /**
  * Add your docs here.
@@ -20,9 +21,11 @@ public class Climber extends SubsystemBase {
   // here. Call these from Commands.
 
   DoubleSolenoid climberSoleniod = null;
+  RobotContainer m_robotContainer;
 
-  public Climber() {
+  public Climber(RobotContainer robotContainer) {
     climberSoleniod = new DoubleSolenoid(1, Constants.ClimberSolenoidFor, Constants.ClimberSolenoidRev);
+    m_robotContainer = robotContainer;
   }
   
   public void climberUp() {

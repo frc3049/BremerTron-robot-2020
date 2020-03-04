@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 /**
  * Add your docs here.
@@ -22,10 +23,12 @@ public class ControlArmMovement extends SubsystemBase {
 
   VictorSP spinWheelVictor = null;
   DoubleSolenoid controlArmSolenoid = null;
+  RobotContainer m_robotContainer;
 
-  public ControlArmMovement(){
+  public ControlArmMovement(RobotContainer robotContainer){
     spinWheelVictor = new VictorSP(Constants.CONTROL_PANEL_VICTOR);
     controlArmSolenoid = new DoubleSolenoid(1, Constants.ColWheelSolenoidFor, Constants.ColWheelSolenoidRev);
+    m_robotContainer = robotContainer;
   }
 
   public void deploy(){

@@ -114,6 +114,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Distance", m_robotContainer.m_drivetrain.getDistance());
     SmartDashboard.putNumber("Launcher Velocity:", m_robotContainer.m_launcher.getVelocity());
     SmartDashboard.putBoolean("Second Ball Present", m_robotContainer.m_launcher.ballPresent());
+    SmartDashboard.putNumber("Intake Lower Motor Current", m_robotContainer.m_pdp.getCurrent(2));
     SmartDashboard.putNumber("ControlWheel UlSensor Distance", m_robotContainer.m_csManipulator.getDistance());
   }
 

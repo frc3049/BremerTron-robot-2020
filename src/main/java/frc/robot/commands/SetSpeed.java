@@ -13,23 +13,23 @@ import frc.robot.RobotContainer;
 public class SetSpeed extends CommandBase {
 
   RobotContainer m_robotContainer;
-  boolean launcherState;
+  double launcherSpeed;
 
   /**
    * Creates a new SetSpeed.
    */
-  public SetSpeed(RobotContainer robotContainer) {
+  public SetSpeed(RobotContainer robotContainer, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(robotContainer.m_launcher);
     m_robotContainer = robotContainer;
-    launcherState = true;
+    launcherSpeed = speed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_robotContainer.m_launcher.setDisabled(false);
-    m_robotContainer.m_launcher.setTargetVelocity(800);
+    m_robotContainer.m_launcher.setTargetVelocity(launcherSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

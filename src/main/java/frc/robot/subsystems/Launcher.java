@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.DataLogger;
+import frc.robot.RobotContainer;
 import frc.robot.StateSpaceController;
 
 
@@ -30,6 +31,7 @@ public class Launcher extends SubsystemBase {
   DoubleSolenoid feedSolenoid;
   AnalogInput UlSensor;
   DataLogger m_dLogger;
+  RobotContainer m_robotContainer;
 
   double wheelRadius = Constants.LauncherWheelDiameter/2; // Radius in inches
   boolean isDisabled = true;
@@ -43,6 +45,8 @@ public class Launcher extends SubsystemBase {
     initStateSpace();
     m_motor = new VictorSP(Constants.LauncherMotor);
     m_encoder = new Encoder(Constants.LauncherEncoderA, Constants.LauncherEncoderB, Constants.LauncherEncoderI);
+    // m_robotContainer = robotContainer;
+    // m_pdp = m_robotContainer.m_pdp;
     m_pdp = pdp;
     m_dLogger = new DataLogger("launchervelocity");
     feedSolenoid = new DoubleSolenoid(1,Constants.BallStopSolenoidFor, Constants.BallStopSolenoidRev);
