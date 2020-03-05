@@ -88,12 +88,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // //Drive Stick Button Mapping
     // JoystickButton button1 = new JoystickButton(joy, 1);
-    JoystickButton button2 = new JoystickButton(joy, 2);
-    JoystickButton button3 = new JoystickButton(joy, 3);
-    JoystickButton button4 = new JoystickButton(joy, 4);
-    JoystickButton button5 = new JoystickButton(joy, 5);
-    JoystickButton button6 = new JoystickButton(joy, 6);
-    JoystickButton button7 = new JoystickButton(joy, 7);
+    // JoystickButton button2 = new JoystickButton(joy, 2);
+    // JoystickButton button3 = new JoystickButton(joy, 3);
+    // JoystickButton button4 = new JoystickButton(joy, 4);
+    // JoystickButton button5 = new JoystickButton(joy, 5);
+    // JoystickButton button6 = new JoystickButton(joy, 6);
+    // JoystickButton button7 = new JoystickButton(joy, 7);
     JoystickButton button8 = new JoystickButton(joy, 8);
     // JoystickButton button9 = new JoystickButton(joy, 9);
     JoystickButton button10 = new JoystickButton(joy, 10);
@@ -112,12 +112,12 @@ public class RobotContainer {
     JoystickButton buttonAux10 = new JoystickButton(aux, 10);
     // JoystickButton buttonAux11 = new JoystickButton(aux, 11);
     // button1.whenPressed(new LowGoal(this));
-    button2.whenPressed(new ShootBall(this));
-    button3.toggleWhenPressed(new CollectBalls(this));
-    button4.toggleWhenPressed(new SetSpeed(this, 1000));
-    button5.whenPressed(new MoveControlWheel(this));
-    button6.whenPressed(new DeployIntake(this));
-    button7.whenPressed(new RetractIntake(this));
+    // button2.whenPressed(new ShootBall(this));
+    // button3.toggleWhenPressed(new CollectBalls(this));
+    // button4.toggleWhenPressed(new SetSpeed(this, 1000));
+    // button5.whenPressed(new MoveControlWheel(this));
+    // button6.whenPressed(new DeployIntake(this));
+    // button7.whenPressed(new RetractIntake(this));
     button8.toggleWhenPressed(new TestClimb(this));
     button11.whenPressed(new TestDeployContArm(this));
     button10.whenPressed(new TestRetractContArm(this));

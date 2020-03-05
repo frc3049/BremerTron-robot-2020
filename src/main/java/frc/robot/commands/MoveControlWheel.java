@@ -50,10 +50,10 @@ public class MoveControlWheel extends CommandBase {
   public void execute() {
     // m_caMovement.spin();
     if (!inPosition){
-    if(m_csManipulator.getDistance() < 3.5){
-      m_drivetrain.drive(-0.2, 0);
-    }else if (m_csManipulator.getDistance() > 5.5){
-      m_drivetrain.drive(0.2, 0);
+    if(m_csManipulator.getDistance() < 5.25){
+      m_drivetrain.drive(-0.3, 0);
+    }else if (m_csManipulator.getDistance() > 7.25){
+      m_drivetrain.drive(0.3, 0);
     }else{
       inPosition = true;
     }
